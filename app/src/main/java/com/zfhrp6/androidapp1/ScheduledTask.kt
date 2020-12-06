@@ -9,26 +9,27 @@ import android.graphics.Color
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import kotlin.concurrent.thread
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.UnsupportedOperationException
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.concurrent.thread
+
+const val url = "http://192.168.0.118:8000/"
 
 class ScheduledTask : Service() {
     suspend fun get() {
         withContext(Dispatchers.IO) {
             Log.d("D", "get")
-            "http://192.168.0.118:8000/".httpGet().response()
+            url.httpGet().response()
         }
     }
 
@@ -47,8 +48,7 @@ class ScheduledTask : Service() {
                 )
             )
             Log.d("f", hoge)
-            "http://192.168.0.118:8000/"
-                .httpPost()
+            url.httpPost()
                 .header("Content-Type", "application/json")
                 .body(hoge).response()
         }
