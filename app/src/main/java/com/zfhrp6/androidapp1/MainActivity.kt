@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private val jobId = 1
     private fun startJob(): Unit {
-        Log.d("DEBUG", object {}.javaClass.enclosingMethod.name)
+        Log.d("DEBUG", DebugUtils.getEnclosingNames().methodName)
         val intent = Intent(applicationContext, ScheduledTask::class.java)
         ContextCompat.startForegroundService(
             this,

@@ -27,13 +27,14 @@ const val url = "http://192.168.0.118:8000/"
 
 class ScheduledTask : Service() {
     suspend fun get() {
+        Log.d("DEBUG", DebugUtils.getEnclosingNames().methodName)
         withContext(Dispatchers.IO) {
-            Log.d("D", "get")
             url.httpGet().response()
         }
     }
 
     private suspend fun post() {
+        Log.d("DEBUG", DebugUtils.getEnclosingNames().methodName)
         withContext(Dispatchers.IO) {
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val adapter = moshi.adapter(Req::class.java)
@@ -55,12 +56,12 @@ class ScheduledTask : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        Log.d("DEBUG", object {}.javaClass.enclosingMethod.name)
+        Log.d("DEBUG", DebugUtils.getEnclosingNames().methodName)
         throw UnsupportedOperationException("not yet")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d("DEBUG", object {}.javaClass.enclosingMethod.name)
+        Log.d("DEBUG", DebugUtils.getEnclosingNames().methodName)
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val name = "notification title"
         val id = "zfhrp6_hoge"
@@ -99,6 +100,6 @@ class ScheduledTask : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("DEBUG", object {}.javaClass.enclosingMethod.name)
+        Log.d("DEBUG", DebugUtils.getEnclosingNames().methodName)
     }
 }
